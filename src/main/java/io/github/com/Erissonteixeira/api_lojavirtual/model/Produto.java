@@ -3,7 +3,7 @@ package io.github.com.Erissonteixeira.api_lojavirtual.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Produtos")
+@Table(name = "produtos")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
