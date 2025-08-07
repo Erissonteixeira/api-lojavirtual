@@ -20,7 +20,7 @@ public class ProdutoController {
         List<Produto> produtos = produtoService.list();
     return ResponseEntity.ok(produtos);
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Produto> getById(@PathVariable Long id){
         return produtoService.getById(id)
                 .map(ResponseEntity::ok)
@@ -33,9 +33,9 @@ public class ProdutoController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        boolean deletado = produtoService.delete(id); // Retorna true/false
+        boolean deletado = produtoService.delete(id);
         if (deletado){
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build(); // 404 caso não exista
         }
