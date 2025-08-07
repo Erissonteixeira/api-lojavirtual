@@ -28,7 +28,13 @@ public class ProdutoService {
     }
 
     public Produto update(Produto produto) {
-        return produtoRepository.save(produto);
+        Optional<Produto> existente = produtoRepository.findById(produto.getId());
+        if (existente.isPresent()) {
+            return produtoRepository.save(produto);
+        } else {
+            throw new RuntimeException("Produto com ID " + produto.getId() + " não encontrado.");
+        }
+
     }
 
     public boolean delete(Long id) {
