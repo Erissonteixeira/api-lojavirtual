@@ -31,13 +31,19 @@ public class ProdutoController {
         Produto novoProduto = produtoService.created(produto);
         return ResponseEntity.ok(novoProduto);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto){
+        produto.setId(id);
+        Produto produtoAtualizado = produtoService.update(produto);
+        return ResponseEntity.ok(produtoAtualizado);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         boolean deletado = produtoService.delete(id);
         if (deletado){
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build(); // 404 caso não exista
+            return ResponseEntity.notFound().build();
         }
     }
         }
