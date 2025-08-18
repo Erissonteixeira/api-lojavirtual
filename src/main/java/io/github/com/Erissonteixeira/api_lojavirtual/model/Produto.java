@@ -1,4 +1,4 @@
-package io.github.com.Erissonteixeira.api_lojavirtual.model;
+        package io.github.com.Erissonteixeira.api_lojavirtual.model;
 
 import jakarta.persistence.*;
 
