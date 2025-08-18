@@ -4,6 +4,8 @@ import io.github.com.Erissonteixeira.api_lojavirtual.dto.ProdutoRequestDTO;
 import io.github.com.Erissonteixeira.api_lojavirtual.dto.ProdutoResponseDTO;
 import io.github.com.Erissonteixeira.api_lojavirtual.model.Produto;
 import io.github.com.Erissonteixeira.api_lojavirtual.repository.ProdutoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,18 @@ public class ProdutoService {
         );
     }
 
-    public List<Produto> list() {
+    public Page<ProdutoResponseDTO> lisProducts(Pageable pageable){
+        return produtoRepository.findAll(pageable)
+                .map(produto -> new ProdutoResponseDTO(
+                        produto.getId(),
+                        produto.getNome(),
+                        produto.getDescricao(),
+                        produto.getQuantidade(),
+                        produto.isDisponivel()
+                ));
+    }
+
+    {
         return produtoRepository.findAll();
     }
     public Optional<Produto> getById(Long id) {
