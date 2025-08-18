@@ -60,8 +60,22 @@ public class ProdutoService {
         );
 
     }
-    public Optional<Produto> getById(Long id) {
-        return produtoRepository.findById(id);
+    public ProdutoResponseDTO updateProduct(Long id, ProdutoRequestDTO dto) {
+        Produto produtoExistente = produtoRepository.findById(id)
+                .orElseThrow(() -> new ProdutoNotFoundException(id));
+                produtoExistente.setNome(dto.getNome());
+                produtoExistente.setDescricao(dto.getDescricao());
+                produtoExistente.setQuantidade(dto.getQuantidade());
+                produtoExistente.setDisponivel(dto.isDisponivel());
+                Produto atualizado = produtoRepository.save(produtoExistente);
+
+                return new ProdutoResponseDTO(
+                        atualizado.getId(),
+                        atualizado.getNome(),
+                        atualizado.getDescricao(),
+                        atualizado.getQuantidade(),
+                        atualizado.isDisponivel()
+                );
     }
 
     public Produto update(Produto produto) {
